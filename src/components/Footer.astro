@@ -1,0 +1,14 @@
+---
+import { site, footer, nav } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>© {year} {site.name}{footer.text && ` · ${footer.text}`}</span>
+    <nav class="footer-nav" aria-label="Footer">
+      {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    </nav>
+  </div>
+</footer>

@@ -1,0 +1,16 @@
+---
+import { about } from '../data/site';
+---
+
+{
+  about.show && (
+    <section class="section section-alt" id="about">
+      <div class="container narrow">
+        <h2>{about.heading}</h2>
+        {about.paragraphs.map((p) => (
+          <p class="prose">{p}</p>
+        ))}
+      </div>
+    </section>
+  )
+}

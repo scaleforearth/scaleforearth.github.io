@@ -1,0 +1,61 @@
+---
+import '@fontsource-variable/archivo/wdth.css';
+import '../styles/global.css';
+import { site } from '../data/site';
+import Header from '../components/Header.astro';
+import ContactBand from '../components/ContactBand.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  /** Page <title>. Defaults to the site title. */
+  title?: string;
+  /** Meta description. Defaults to the site description. */
+  description?: string;
+  /** Show the "Get in touch" band above the footer. */
+  contactBand?: boolean;
+}
+
+const { title = site.seoTitle, description = site.seoDescription, contactBand = true } = Astro.props;
+
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const ogImage = site.ogImage && Astro.site ? new URL(site.ogImage, Astro.site).href : undefined;
+---
+
+<!doctype html>
+<html lang="en" data-palette={site.palette}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="color-scheme" content="light dark" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+
+    <!-- Resolve the theme before first paint to avoid a flash. -->
+    <script is:inline>
+      (function () {
+        var stored = null;
+        try { stored = localStorage.getItem('theme'); } catch (e) {}
+        var dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        var theme = stored === 'light' || stored === 'dark' ? stored : dark ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    {contactBand && <ContactBand />}
+    <Footer />
+  </body>
+</html>

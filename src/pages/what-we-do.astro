@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Services from '../components/Services.astro';
+import { site, services } from '../data/site';
+---
+
+<Layout title={`${services.heading} — ${site.name}`} description={services.intro || site.seoDescription}>
+  <PageHeader title={services.heading} lead={services.intro} />
+  <Services showHeading={false} />
+</Layout>

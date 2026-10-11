@@ -1,0 +1,34 @@
+---
+import { site, nav } from '../data/site';
+
+// The primary button goes to the second page in the nav (What we do).
+const next = nav[1] ?? nav[0];
+const hasImage = Boolean(site.heroImage);
+---
+
+<section class:list={['hero', { 'hero--image': hasImage }]} id="top">
+  {
+    hasImage && (
+      <img
+        class="hero-bg"
+        src={site.heroImage}
+        alt={site.heroImageAlt}
+        style={`object-position: ${site.heroImagePosition}`}
+        fetchpriority="high"
+        decoding="async"
+      />
+    )
+  }
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      {site.eyebrow && <p class="eyebrow">{site.eyebrow}</p>}
+      <h1>{site.name}</h1>
+      <p class="tagline">{site.tagline}</p>
+      <p class="lead">{site.description}</p>
+      <div class="actions">
+        <a class="btn btn-primary" href={next.href}>{next.label}</a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+  </div>
+</section>

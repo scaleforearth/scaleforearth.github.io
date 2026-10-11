@@ -1,0 +1,26 @@
+---
+import { contact } from '../data/site';
+
+const linkedinText = contact.linkedin.display || contact.linkedin.url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+---
+
+<section class="cta" id="contact">
+  <div class="container cta-inner">
+    <div class="cta-copy">
+      <h2>{contact.heading}</h2>
+      {contact.intro && <p class="cta-intro">{contact.intro}</p>}
+      {contact.location && <p class="cta-location">{contact.location}</p>}
+    </div>
+
+    <ul class="cta-links">
+      <li>
+        <span class="cta-label">Email</span>
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>
+      </li>
+      <li>
+        <span class="cta-label">{contact.linkedin.label}</span>
+        <a href={contact.linkedin.url} target="_blank" rel="noopener noreferrer">{linkedinText}</a>
+      </li>
+    </ul>
+  </div>
+</section>

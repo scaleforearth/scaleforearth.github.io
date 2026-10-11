@@ -1,0 +1,61 @@
+---
+import { services, nav } from '../data/site';
+
+interface Props {
+  /** Teaser mode (used on Home): hides the bullet points and adds a link to the full page. */
+  compact?: boolean;
+  /** The What we do page shows its own page title, so it turns the section heading off. */
+  showHeading?: boolean;
+}
+
+const { compact = false, showHeading = true } = Astro.props;
+const { heading, intro, layout, items } = services;
+const full = nav.find((n) => n.href === '/what-we-do');
+---
+
+<section class="section" id="services">
+  <div class="container">
+    {
+      showHeading && (
+        <div class="section-head">
+          <h2>{heading}</h2>
+          {intro && <p class="section-intro">{intro}</p>}
+        </div>
+      )
+    }
+
+    {/* The same data renders in three layouts; the number of items is free. */}
+    <ul class={`services services--${layout}`}>
+      {
+        items.map((item, i) => (
+          <li class="service">
+            {(layout === 'steps' || layout === 'cards') && (
+              <span class="service-index">{String(i + 1).padStart(2, '0')}</span>
+            )}
+            <div class="service-body">
+              <h3>{item.title}</h3>
+              <p>{item.description}</p>
+              {!compact && item.points && item.points.length > 0 && (
+                <ul class="points">
+                  {item.points.map((point) => (
+                    <li>{point}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      compact && full && (
+        <p class="more">
+          <a class="arrow-link" href={full.href}>
+            See everything we do <span aria-hidden="true">→</span>
+          </a>
+        </p>
+      )
+    }
+  </div>
+</section>

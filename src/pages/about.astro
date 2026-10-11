@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { site, about } from '../data/site';
+---
+
+<Layout title={`${about.heading} — ${site.name}`} description={about.paragraphs[0] ?? site.seoDescription}>
+  <PageHeader title={about.heading} />
+
+  <section class="section">
+    <div class:list={['container', 'about', { 'about--with-photo': about.photo }]}>
+      <div class="about-text">
+        {about.paragraphs.map((p) => <p class="prose">{p}</p>)}
+      </div>
+      {
+        about.photo && (
+          <figure class="about-photo">
+            <img src={about.photo} alt={about.photoAlt} loading="lazy" />
+          </figure>
+        )
+      }
+    </div>
+  </section>
+</Layout>

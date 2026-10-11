@@ -1,0 +1,22 @@
+---
+import { about, nav } from '../data/site';
+
+const page = nav.find((n) => n.href === '/about');
+const [first] = about.paragraphs;
+---
+
+<section class="section section-alt">
+  <div class="container">
+    <h2>{about.heading}</h2>
+    {first && <p class="prose">{first}</p>}
+    {
+      page && (
+        <p class="more">
+          <a class="arrow-link" href={page.href}>
+            More about us <span aria-hidden="true">→</span>
+          </a>
+        </p>
+      )
+    }
+  </div>
+</section>
