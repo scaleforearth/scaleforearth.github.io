@@ -142,3 +142,9 @@ export const contact = {
 export const footer = {
   text: 'Geospatial data pipeline consulting.',
 };
+
+export const analytics = {
+  /** Umami script URL: 'https://cloud.umami.is/script.js' or 'https://<your-host>/script.js'. Leave empty to disable. */
+  src: 'https://analytics.kejim.net/script.js',
+  websiteId: '73edc076-4d35-45cb-aa54-537812f05b56',
+};

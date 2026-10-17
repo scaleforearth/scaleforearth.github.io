@@ -1,7 +1,7 @@
 ---
 import '@fontsource-variable/archivo/wdth.css';
 import '../styles/global.css';
-import { site } from '../data/site';
+import { site, analytics } from '../data/site';
 import Header from '../components/Header.astro';
 import ContactBand from '../components/ContactBand.astro';
 import Footer from '../components/Footer.astro';
@@ -38,7 +38,17 @@ const ogImage = site.ogImage && Astro.site ? new URL(site.ogImage, Astro.site).h
     {canonical && <meta property="og:url" content={canonical} />}
     {ogImage && <meta property="og:image" content={ogImage} />}
     <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
-
+    {
+      analytics.src && analytics.websiteId && (
+        <script
+          is:inline
+          defer
+          src={analytics.src}
+          data-website-id={analytics.websiteId}
+          data-domains="scaleforearth.com"
+        />
+      )
+  }
     <!-- Resolve the theme before first paint to avoid a flash. -->
     <script is:inline>
       (function () {

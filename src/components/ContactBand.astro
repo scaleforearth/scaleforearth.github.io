@@ -15,11 +15,11 @@ const linkedinText = contact.linkedin.display || contact.linkedin.url.replace(/^
     <ul class="cta-links">
       <li>
         <span class="cta-label">Email</span>
-        <a href={`mailto:${contact.email}`}>{contact.email}</a>
+        <a href={`mailto:${contact.email}`} data-umami-event="contact-email">{contact.email}</a>
       </li>
       <li>
         <span class="cta-label">{contact.linkedin.label}</span>
-        <a href={contact.linkedin.url} target="_blank" rel="noopener noreferrer">{linkedinText}</a>
+        <a href={contact.linkedin.url} target="_blank" rel="noopener noreferrer" data-umami-event="contact-linkedin">{linkedinText}</a>
       </li>
     </ul>
   </div>
